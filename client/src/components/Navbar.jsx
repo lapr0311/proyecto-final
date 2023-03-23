@@ -6,8 +6,9 @@ const Navbar = () => {
 	return (
 		<nav className="menu">
         <section className="menu__container">
-            <h1 className="menu__logo">Zapatero</h1>
-
+		
+            <h1 className="menu__logo"><NavLink to="/">Zapatero	</NavLink></h1>
+		
             <ul className="menu__links">
                 <li className="menu__item">
                     <NavLink
@@ -15,17 +16,17 @@ const Navbar = () => {
                 </li>
     
                 <li className="menu__item menu__item--show">
-                    <a href="#" className="menu__link">Productos <img src={image} className="menu__arrow"/></a>
+                    <div  className="menu__link">Productos <img src={image} className="menu__arrow"/></div>
     
                     <ul className="menu__nesting">
                         <li className="menu__inside">
-                            <a href="#" className="menu__link menu__link--inside">Mujer</a>
+						<NavLink to="/mujer" className="menu__link menu__link--inside">Mujer</NavLink>
                         </li>
                         <li className="menu__inside">
-                            <a href="#" className="menu__link menu__link--inside">Hombre</a>
+						<NavLink to="/hombre" className="menu__link menu__link--inside">Hombre</NavLink>
                         </li>
                         <li className="menu__inside">
-                            <a href="#" className="menu__link menu__link--inside">niños</a>
+						<NavLink to="/nino" className="menu__link menu__link--inside">Niño/a</NavLink>
                         </li>
                     </ul>
                 </li>

@@ -21,8 +21,10 @@
 }
 
 .menu__logo{
+    color:$white;
     font-size: 30px;
-
+    text-decoration: none;
+    // list-style: none;
 }
 .menu__item{
     list-style: none;
