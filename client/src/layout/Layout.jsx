@@ -1,6 +1,6 @@
 // import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
-import Routers from "../router/Routers";
+// import Navbar from "../components/Navbar";
+import Routes from "../routes/Routes";
 
 
 const Layout = () => {
@@ -9,9 +9,9 @@ const Layout = () => {
 
 		<>
 		
-		<Navbar/>
+		{/* <Navbar/> */}
 		<div>
-			<Routers/>
+			<Routes/>
 		</div>
 		{/* <Footer/> */}
 		</>
@@ -20,5 +20,4 @@ const Layout = () => {
 	)
 	
 };
-
 export default Layout;

@@ -1,11 +1,7 @@
-import Header from "../components/Header";
-import Seccion from "../components/Seccion";
-
 const Home = () => {
 	return (
 		<div>
-			<Header/>
-			<Seccion/>
+			<h1>home</h1>
 		</div>
 	)
 };
