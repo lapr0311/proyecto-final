@@ -12,8 +12,8 @@ const router = Router();
 
 router.post('/login', reportQuery, checkCredentials, createLogin)
 
-router.post('/usuarios',reportQuery,  createUser)
+router.post('/users',reportQuery,  createUser)
 //obtener datos
-router.get('/usuarios', reportQuery, verifyToken, getUsuarios)
+router.get('/users', reportQuery, verifyToken, getUsuarios)
 
 module.exports = router;

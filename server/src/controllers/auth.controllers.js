@@ -16,8 +16,8 @@ const createUser = async (req, res) => {
 
 const createLogin = async (req, res) => {
   try {
-    const { email, password } = req.body;
-    await userLogin(email, password);
+    const {  nombre, email, password, telefono, direccion} = req.body;
+    await userLogin(nombre, email, password, telefono, direccion);
     const token = jwt.sign({ email }, process.env.SECRET_KEY);
     res.send(token);
     

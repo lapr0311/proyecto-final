@@ -5,11 +5,11 @@ const bcrypt = require('bcryptjs');
 
 
 const newUser = async (user) => {
-  let { email, password, rol, lenguage } = user;
-  const query = "INSERT INTO usuarios values (DEFAULT, $1, $2, $3, $4)";
+  let { nombre, email, password, telefono, direccion } = user;
+  const query = "INSERT INTO usuarios values (DEFAULT, $1, $2, $3, $4, $5)";
   const encryptedPassword = bcrypt.hashSync(password);
   password = encryptedPassword;
-  const values = [email, encryptedPassword, rol, lenguage];
+  const values = [ nombre, email, encryptedPassword, telefono, direccion];
   await pool.query(query, values);
 };
 
