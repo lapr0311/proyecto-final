@@ -1,5 +1,6 @@
-import React from 'react'
-import { Navigate, useLocation } from 'react-router-dom'
+/* eslint-disable react/prop-types */
+// import React from 'react'
+import {  Navigate, useLocation } from 'react-router-dom'
 
 export const PrivateRoute = ({children}) => {
 
