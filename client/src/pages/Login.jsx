@@ -1,108 +1,114 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate,  } from "react-router-dom";
 import Input from "../components/Input";
-import { useForm } from "../Hook/UseForm";
-
+// import { useForm } from "../Hook/UseForm";
+import Title from "../components/Title";
+import Button from "../components/Button";
+import { useState } from "react";
+import axios from "axios";
+// import { useContext } from "react";
+// import { ZapateroContext } from "../context/ZapateroProvider";
 const Login = () => {
-	const navigate = useNavigate();
 
-  const { name, email, password, onInputChange, onResetForm } = useForm({
-    name: "",
-    email: "",
-    password: "",
-  });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+ 
+	const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
-  const onLogin = (e) => {
+  const handleSubmit = async (e) => {
+    
     e.preventDefault();
+    try {
+      //Validación;
+      if ( email === "" || password === "" ) {
+       setError("escriba algo 😍");
+     } else {
+             await axios.post("http://localhost:8001/login", {
+            
+             email,
+             password,
+            
+           });
+       
+           navigate("/perfil");}
+         } catch (error) {
+           console.log(error);
+         }
+       };
+     
+    
+  return (
+    <div>
+      <section>
+        <div className="form-box">
+          <div className="form-value">
+            <form onSubmit={handleSubmit}>
+            <Title h1=" Login"/>
+                 {error ? <p>{error}</p> : null}
+             
 
-    navigate("/Perfil", {
-      replace: true,
-      state: {
-        logged: true,
-        name,
-      },
-    });
+              <div className="inputbox">
+              <Title titleLabel=" Ingresa tu Email"/>
+                <Input
+                  type="email"
+                  name="email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  autoComplete="off"
+                />
+            
+              </div>
 
-    onResetForm();
-  };
-	return (
-		<div>
-		<section>
-          <div className="form-box">
-            <div className="form-value">
-              <form onSubmit={onLogin}>
-                <h2>Login</h2>
-        
-                  <Input
-                    type="name"
-                    name="name"
-                    id="name"
-                    value={name}
-                    onChange={onInputChange}
-                    required
-                    autoComplete="off"
-                  />
-                  <label >Nombre</label>
-               
+              <div className="inputbox">
+              <Title titleLabel=" Ingresa tu Contraseña"/>
+                <Input
+                  type="password"
+                  name="password"
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  autoComplete="off"
+                />
+              
+              </div>
 
-                <div className="inputbox">
-                  {/* <ion-icon name="mail-outline"></ion-icon> */}
-                  <Input
-                    type="email"
-                    name="email"
-                    id="email"
-                    value={email}
-                    onChange={onInputChange}
-                    required
-                    autoComplete="off"
-                  />
-                  <label >Email</label>
-                </div>
+             
 
-                <div className="inputbox">
-               
-                  <Input
-                    type="password"
-                    name="password"
-                    id="password"
-                    value={password}
-                    onChange={onInputChange}
-                    required
-                    autoComplete="off"
-                  />
-                  
-                </div>
-                <div className="forget">
-                  <label >
-                    <Input type="checkbox" />
-                    Recuerdame{" "}
-                    <a
-                      href="https://www.google.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      ¿Olvidaste tú password?
-                    </a>
-                  </label>
-                </div>
-                <button>Log in</button>
-                <div className="register">
-                  <p>Si no posees cuenta, </p>
-                  <Link className="link1" to="/Register">
-                    Registrate
+              
+<Button type="submit" textButton='login'/>
+<div className="forget">
+                <label>
+                  <Input type="checkbox" />
+                  Recuerdame{" "}
+                  <a
+                    href="https://www.google.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ¿Olvidaste tú password?
+                  </a>
+                </label>
+              </div>
+              <div>
+                <p>Si no posees cuenta, </p>
+                <Link className="link1" to="/Register">
+                  Registrate
+                </Link>
+                <div>
+                  <Link className="link2" to="/">
+                    Volver al inicio
                   </Link>
-                  <div>
-                    <Link className="link2" to="/">
-                      Volver al inicio
-                    </Link>
-                  </div>
                 </div>
-              </form>
-            </div>
+              </div>
+            </form>
           </div>
-        </section>
-		</div>
-		
-	)
+        </div>
+      </section>
+    </div>
+  );
 };
 
 export default Login;

@@ -2,7 +2,9 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Input from "../components/Input";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import Title from "../components/Title";
+import Button from "../components/Button";
 
 const Register = () => {
   const [nombre, setNombre] = useState("");
@@ -10,30 +12,30 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [telefono, setTelefono] = useState("");
   const [direccion, setDireccion] = useState("");
-
+	const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8001/users", {
-        nombre,
-        email,
-        password,
-        telefono,
-        direccion,
-      });
-      if (res && res.data.success) {
-        toast.success(res.data && res.data.message);
-      } else {
-        toast.error(res.data.message);
-      }
-
-      navigate("/login");
-    } catch (error) {
-      console.log(error);
-    }
-  };
+      //Validación;
+      if (nombre === "" || email === "" || password === "" || telefono === "" || direccion === "") {
+       setError("escriba algo 😍");
+     } else {
+             await axios.post("http://localhost:8001/users", {
+             nombre,
+             email,
+             password,
+             telefono,
+             direccion,
+           });
+       
+           navigate("/login");}
+         } catch (error) {
+           console.log(error);
+         }
+       };
+     
 
   return (
     <>
@@ -41,9 +43,10 @@ const Register = () => {
         <div className="form-box">
           <div className="form-value">
             <form onSubmit={handleSubmit}>
-              <h2>Registrate</h2>
+            <Title h1=" Registrate"/>
+                 {error ? <p>{error}</p> : null}
               <div className="inputbox">
-                {/* <ion-icon name="mail-outline"></ion-icon> */}
+              <Title titleLabel=" Ingresa Nombre"/>
                 <Input
                   type="name"
                   name="name"
@@ -53,11 +56,11 @@ const Register = () => {
                   required
                   autoComplete="off"
                 />
-                <label>Nombre</label>
+           
               </div>
 
               <div className="inputbox">
-                {/* <ion-icon name="mail-outline"></ion-icon> */}
+              <Title titleLabel=" Ingresa tu Email"/>
                 <Input
                   type="email"
                   name="email"
@@ -67,10 +70,11 @@ const Register = () => {
                   required
                   autoComplete="off"
                 />
-                <label>Email</label>
+            
               </div>
 
               <div className="inputbox">
+              <Title titleLabel=" Ingresa tu Contraseña"/>
                 <Input
                   type="password"
                   name="password"
@@ -80,10 +84,11 @@ const Register = () => {
                   required
                   autoComplete="off"
                 />
-                <label>Password</label>
+              
               </div>
 
               <div className="inputbox">
+              <Title titleLabel=" Ingresa tu Telefono"/>
                 <Input
                   type="number"
                   name="telefono"
@@ -93,11 +98,11 @@ const Register = () => {
                   required
                   autoComplete="off"
                 />
-                <label>telefono</label>
+             
               </div>
 
               <div className="inputbox">
-                {/* <ion-icon name="lock-closed-outline"></ion-icon> */}
+              <Title titleLabel=" Ingresa tu Dirección "/>
                 <Input
                   type="text"
                   name="direccion"
@@ -107,10 +112,10 @@ const Register = () => {
                   required
                   autoComplete="off"
                 />
-                <label>direccion</label>
+             
               </div>
-
-              <button type="submit">Registrate</button>
+<Button type="submit" textButton='Registrate'/>
+              
               <div className="link3">
                 <Link className="to" to="/">
                   Volver al inicio
